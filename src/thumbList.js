@@ -11,7 +11,7 @@ class Thumb_list extends React.Component {
 	}
 
 	componentDidMount() {
-		fetch('https://screens-api.aeoah.se/screens/all/latest/100')
+		fetch('https://screens-api.aeoah.se/screens/all/latest/500')
 			.then(res => res.json())
 			.then(
 				(result) => {
