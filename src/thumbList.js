@@ -16,12 +16,14 @@ class Thumb_list extends React.Component {
 	render() {
 		const items = this.props.items
 
-		return <section>
-			<h1 style={{color: 'white'}}>Showing {items.length} screens</h1>
-			{items.map(item => (
-				<Thumb key={item.id} link={item.path.screen.path} thumb_src={item.path.thumb.path} />
-			))}
+		return (
+			<section>
+				<h1 style={{color: 'white'}}>Showing {items.length} screens</h1>
+				{items.map(item => (
+					<Thumb key={item.id} screenId={item.id} link={item.path.screen.path} thumb_src={item.path.thumb.path} />
+				))}
 			</section>
+		)
 	}
 }
 
