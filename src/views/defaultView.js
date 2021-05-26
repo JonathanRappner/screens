@@ -7,34 +7,13 @@ class DefaultView extends React.Component{
 
 	constructor(props) {
 		super(props)
-
-		this.state = { 
-			thumbs: [],
-			thumbListLength: 100
-		}
+		this.state = {
+			thumbLength: 100
+		};
 	}
 
-	componentDidMount(){
-		this.loadScreens()
-	}
-
-	foobarClick = () => {
-		this.setState(
-			{ thumbListLength: 10 },
-			this.loadScreens
-		)
-	}
-
-	loadScreens = () => {
-		fetch(`https://screens-api.aeoah.se/screens/all/latest/${this.state.thumbListLength}`)
-		.then(res => res.json())
-		.then(
-			(result) => {
-				this.setState({
-					thumbs: result
-				})
-			}
-		)
+	handleFoobarClick = () => {
+		this.setState({thumbLength: 10})
 	}
 
 	render() {
@@ -43,9 +22,9 @@ class DefaultView extends React.Component{
 		return (
 			<div className="App">
 				{ screenId && <Viewer screenId={screenId} />}
-				<Button className="btn-success" onClick={this.foobarClick}>Foobar</Button>
+				<Button className="btn-success" onClick={this.handleFoobarClick}>Foobar</Button>
 
-				<ThumbList items={this.state.thumbs} />
+				<ThumbList thumbsLength={this.state.thumbLength} />
 			</div>
 		)
 	}
