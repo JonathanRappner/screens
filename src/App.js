@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import DefaultView from './views/defaultView'
 import AdminView from './views/adminView';
-import UnknownURLView from './views/unknownURLView';
+import FourOFour from './views/fourOFour';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 
@@ -16,7 +16,7 @@ class App extends React.Component {
 					<Route exact path='/' component={DefaultView} />
 					<Route path='/:screenId(\d{10})' component={DefaultView} />
 					<Route path='/admin' component={AdminView} />
-					<Route component={UnknownURLView} />
+					<Route component={FourOFour} />
 				</Switch>
 			</Router>
 		)
