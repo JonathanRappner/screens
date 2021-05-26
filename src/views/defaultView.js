@@ -12,11 +12,9 @@ class DefaultView extends React.Component{
 			thumbs: [],
 			thumbListLength: 100
 		}
-		
 	}
 
 	componentDidMount(){
-
 		this.loadScreens()
 	}
 
@@ -40,9 +38,11 @@ class DefaultView extends React.Component{
 	}
 
 	render() {
+		const screenId = this.props.match.params.screenId;
+
 		return (
 			<div className="App">
-				{ this.props.match.params.screenId && <Viewer screenId={this.props.match.params.screenId} />}
+				{ screenId && <Viewer screenId={screenId} />}
 				<Button className="btn-success" onClick={this.foobarClick}>Foobar</Button>
 
 				<ThumbList items={this.state.thumbs} />
