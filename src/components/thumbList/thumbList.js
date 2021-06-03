@@ -1,5 +1,7 @@
 import React from 'react'
+import config from '../../config'
 import Thumb from './thumb'
+import './thumbList.scss'
 
 class Thumb_list extends React.Component {
 
@@ -20,7 +22,7 @@ class Thumb_list extends React.Component {
 	}
 
 	loadScreens = () => {
-		fetch(`https://screens-api.aeoah.se/screens/all/latest/${this.props.thumbsLength}`)
+		fetch(`${config.api_url}screens/all/latest/${this.props.thumbsLength}`)
 		.then(res => res.json())
 		.then(
 			(result) => {
@@ -35,9 +37,10 @@ class Thumb_list extends React.Component {
 		const items = this.state.items
 
 		return (
-			<section>
-				(<h1 style={{color: 'white'}}>Showing {this.props.thumbsLength} screens</h1>)
-				{items && items.map(item => <Thumb key={item.id} screenId={item.id} link={item.path.screen.path} thumb_src={item.path.thumb.path} />)}
+			<section className='row m-0'>
+				{items && items.map(item =>
+					<Thumb key={item.id} screenId={item.id} screen={item} />
+				)}
 			</section>)
 	}
 }

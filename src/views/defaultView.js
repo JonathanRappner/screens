@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button'
+import { Button } from 'react-bootstrap'
 import ThumbList from '../components/thumbList/thumbList';
 import Viewer from '../components/viewer/viewer';
 
@@ -21,8 +21,8 @@ class DefaultView extends React.Component{
 
 		return (
 			<div className="App">
-				{ screenId && <Viewer screenId={screenId} />}
-				<Button className="btn-success" onClick={this.handleFoobarClick}>Foobar</Button>
+				<Viewer screenId={screenId} />
+				<Button variant="success" onClick={this.handleFoobarClick}>Foobar</Button>
 
 				<ThumbList thumbsLength={this.state.thumbLength} />
 			</div>
