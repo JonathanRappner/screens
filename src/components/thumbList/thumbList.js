@@ -39,7 +39,7 @@ class Thumb_list extends React.Component {
 		return (
 			<section className='row m-0'>
 				{items && items.map(item =>
-					<Thumb key={item.id} screenId={item.id} screen={item} />
+					<Thumb key={item.id} screen={item} viewerChangeHandler={this.props.viewerChangeHandler} />
 				)}
 			</section>)
 	}

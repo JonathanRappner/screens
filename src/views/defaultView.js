@@ -8,7 +8,8 @@ class DefaultView extends React.Component{
 	constructor(props) {
 		super(props)
 		this.state = {
-			thumbLength: 100
+			thumbLength: 100,
+			viewerScreenId: this.props.match.params.screenId
 		};
 	}
 
@@ -16,15 +17,18 @@ class DefaultView extends React.Component{
 		this.setState({thumbLength: 10})
 	}
 
+	handleViewerScreenIdChange = (newId) => {
+		this.setState({viewerScreenId: newId})
+	}
+
 	render() {
-		const screenId = this.props.match.params.screenId;
 
 		return (
 			<div className="App">
-				<Viewer screenId={screenId} />
 				<Button variant="success" onClick={this.handleFoobarClick}>Foobar</Button>
 
-				<ThumbList thumbsLength={this.state.thumbLength} />
+				<ThumbList thumbsLength={this.state.thumbLength} viewerChangeHandler={this.handleViewerScreenIdChange} />
+				<Viewer id={this.state.viewerScreenId} />
 			</div>
 		)
 	}
