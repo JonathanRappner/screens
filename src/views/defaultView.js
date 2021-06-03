@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
-import ThumbList from '../thumbList';
-import Viewer from '../viewer';
+import ThumbList from '../components/thumbList/thumbList';
+import Viewer from '../components/viewer/viewer';
 
 class DefaultView extends React.Component{
 
