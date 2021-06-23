@@ -46,6 +46,7 @@ class Viewer extends React.Component {
 		this.setState({
 			showModal: false
 		})
+		this.props.history.push('/')
 	}
 
 	render() {
