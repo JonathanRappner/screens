@@ -13,10 +13,6 @@ class DefaultView extends React.Component{
 		};
 	}
 
-	handleFoobarClick = () => {
-		this.setState({thumbLength: 10})
-	}
-
 	handleViewerScreenIdChange = (newId) => {
 		this.setState({viewerScreenId: newId})
 	}
@@ -25,10 +21,10 @@ class DefaultView extends React.Component{
 
 		return (
 			<div className="App">
-				<Button variant="success" onClick={this.handleFoobarClick}>Foobar</Button>
+				<Button variant="success" onClick={() => this.setState({thumbLength: 10})}>Foobar</Button>
 
 				<ThumbList thumbsLength={this.state.thumbLength} viewerChangeHandler={this.handleViewerScreenIdChange} />
-				<Viewer id={this.state.viewerScreenId} />
+				<Viewer id={this.state.viewerScreenId} history={this.props.history} />
 			</div>
 		)
 	}
