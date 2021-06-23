@@ -128,6 +128,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#
+# Custom
 /.stuff
 /.vscode
+
+# Scripts
+*.sh
+*.cmd
