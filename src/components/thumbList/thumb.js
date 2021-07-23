@@ -10,7 +10,7 @@ class Thumb extends React.Component{
 			<Link to={'/'+ screen.id} className='thumb p-0 col-6 col-sm-4 col-md-2' onClick={() => this.props.viewerChangeHandler(screen.id)}>
 				<img
 					className='w-100'
-					src={screen.path.thumb.path}
+					src={screen.thumb.url}
 					alt={'Screen '+ screen.id}
 				/>
 			</Link>

@@ -9,10 +9,8 @@ class Viewer extends React.Component {
 		this.state = {
 			showModal: typeof this.props.id !== 'undefined',
 			screen: {
-				path: {
-					screen: { path: null },
-					thumb: { path: null }
-				},
+				screen: { url: null },
+				thumb: { url: null }
 			}
 		};
 	}
@@ -63,7 +61,7 @@ class Viewer extends React.Component {
 				<Modal.Header closeButton>
 					Viewing screen {this.props.screenId}</Modal.Header>
 				<Modal.Body>
-					<img src={screen.path.screen.path} alt='' className='w-100' />
+					<img src={screen.screen.url} alt='' className='w-100' />
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant='danger' onClick={this.close}>Close</Button>
