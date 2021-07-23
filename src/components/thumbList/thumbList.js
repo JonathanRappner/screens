@@ -22,7 +22,9 @@ class Thumb_list extends React.Component {
 	}
 
 	loadScreens = () => {
-		fetch(`${config.api_url}screens/all/latest/${this.props.thumbsLength}`)
+		const game_code_filter = this.props.game_code_filter ?? 'all'
+
+		fetch(`${config.api_url}screens/${game_code_filter}/latest/${this.props.thumbsLength}`)
 		.then(res => res.json())
 		.then(
 			(result) => {
