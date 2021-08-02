@@ -3,7 +3,7 @@ import config from '../../config'
 import Thumb from './thumb'
 import './thumbList.scss'
 
-class Thumb_list extends React.Component {
+class ThumbList extends React.Component {
 
 	constructor(props) {
 		super(props)
@@ -17,14 +17,14 @@ class Thumb_list extends React.Component {
 	}
 
 	componentDidUpdate(prevProps){
-		if (prevProps.thumbsLength !== this.props.thumbsLength)
+		if (prevProps.length !== this.props.length)
 			this.loadScreens()
 	}
 
 	loadScreens = () => {
-		const game_code_filter = this.props.game_code_filter ?? 'all'
+		const gameCode = this.props.gameCode ?? 'all'
 
-		fetch(`${config.api_url}screens/${game_code_filter}/latest/${this.props.thumbsLength}`)
+		fetch(`${config.api_url}screens/${gameCode}/latest/${this.props.length}`)
 		.then(res => res.json())
 		.then(
 			(result) => {
@@ -47,4 +47,4 @@ class Thumb_list extends React.Component {
 	}
 }
 
-export default Thumb_list;
+export default ThumbList;

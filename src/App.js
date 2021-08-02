@@ -16,7 +16,7 @@ class App extends React.Component {
 					<Route exact path='/' component={DefaultView} />
 					<Route path='/admin' component={AdminView} />
 					<Route path='/:screenId(\d{10})' component={DefaultView} />
-					<Route path='/:game_code_filter(\w+)' component={DefaultView} />
+					<Route path='/:gameCode(\w+)' component={DefaultView} />
 					<Route component={FourOFour} />
 				</Switch>
 			</Router>
