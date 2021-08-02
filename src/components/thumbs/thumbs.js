@@ -1,10 +1,10 @@
-import axios from 'axios'
 import React from 'react'
+import axios from 'axios'
 import config from '../../config'
 import Thumb from './thumb'
 import './thumbs.scss'
 
-class ThumbList extends React.Component {
+class Thumbs extends React.Component {
 
 	constructor(props) {
 		super(props)
@@ -26,19 +26,19 @@ class ThumbList extends React.Component {
 		const gameCode = this.props.gameCode ?? 'all'
 
 		axios.get(`${config.api_url}screens/${gameCode}/latest/${this.props.length}`)
-			.then(res => {
-				this.setState({items: res.data})
-			})
+		.then(res => {
+			this.setState({items: res.data})
+		})
 	}
 
 	render() {
 		return (
-			<section className='row m-0'>
+			<section className='row'>
 				{this.state.items && this.state.items.map(item =>
-					<Thumb key={item.id} screen={item} viewerChangeHandler={this.props.viewerChangeHandler} />
+					<Thumb key={item.id} screen={item} thumbClick={this.props.thumbClick} />
 				)}
 			</section>)
 	}
 }
 
-export default ThumbList;
+export default Thumbs;
