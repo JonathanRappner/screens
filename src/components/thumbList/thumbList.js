@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import config from '../../config'
 import Thumb from './thumb'
@@ -24,15 +25,11 @@ class ThumbList extends React.Component {
 	loadScreens = () => {
 		const gameCode = this.props.gameCode ?? 'all'
 
-		fetch(`${config.api_url}screens/${gameCode}/latest/${this.props.length}`)
-		.then(res => res.json())
-		.then(
-			(result) => {
-				this.setState({
-					items: result
-				})
-			}
-		)
+		axios.get(`${config.api_url}screens/${gameCode}/latest/${this.props.length}`)
+			.then(res => {
+				console.log(res);
+				this.setState({items: res.data})
+			})
 	}
 
 	render() {
