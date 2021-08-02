@@ -48,9 +48,9 @@ class Viewer extends React.Component {
 
 		return (
 			<section className="viewer-wrapper">
-				{ this.state.display && <div className="backdrop" onClick={this.close}></div> }
+				{ this.props.display && <div className="backdrop" onClick={this.close}></div> }
 				
-				{ this.state.display && 
+				{ this.props.display && 
 					<div className="viewer">
 						{/* <h5 className="text-light">Viewing screen {this.props.id}</h5> */}
 						{/* <Button color="danger" onClick={this.close}>X</Button> */}

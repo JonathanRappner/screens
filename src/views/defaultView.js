@@ -19,7 +19,8 @@ class DefaultView extends React.Component{
 		if(this.props.match !== prevProps.match)
 			this.setState({
 				viewerId: this.props.match.params.screenId,
-				gameCode: this.props.match.params.gameCode
+				gameCode: this.props.match.params.gameCode,
+				displayViewer: typeof this.props.match.params.screenId !== 'undefined'
 			})
 	}
 
