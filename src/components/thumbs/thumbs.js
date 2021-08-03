@@ -4,7 +4,7 @@ import config from '../../config'
 import Thumb from './thumb'
 import './thumbs.scss'
 
-class Thumbs extends React.Component {
+export default class Thumbs extends React.Component {
 
 	constructor(props) {
 		super(props)
@@ -18,7 +18,7 @@ class Thumbs extends React.Component {
 	}
 
 	componentDidUpdate(prevProps){
-		if (prevProps.length !== this.props.length)
+		if (prevProps.gameCode !== this.props.gameCode)
 			this.loadScreens()
 	}
 
@@ -33,12 +33,10 @@ class Thumbs extends React.Component {
 
 	render() {
 		return (
-			<section className='row'>
+			<section className='row g-0'>
 				{this.state.items && this.state.items.map(item =>
-					<Thumb key={item.id} screen={item} thumbClick={this.props.thumbClick} />
+					<Thumb key={item.id} screen={item} thumbClick={this.props.thumbClick} gameCode={this.props.gameCode} />
 				)}
 			</section>)
 	}
 }
-
-export default Thumbs;

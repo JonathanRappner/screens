@@ -1,12 +1,15 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import _ from 'lodash';
 
-class Thumb extends React.Component{
+export default class Thumb extends React.Component{
 
 	render(){
 		const screen = this.props.screen;
+		const url = `/${!_.isNil(this.props.gameCode) ? this.props.gameCode +'/' : ''}`+ screen.id
+
 		return (
-			<Link to={'/'+ screen.id} className='thumb p-0 col-6 col-sm-4 col-md-2' onClick={() => this.props.thumbClick(screen.id)}>
+			<Link to={url} className='thumb g-0 col-6 col-sm-4 col-md-2'>
 				<img
 					className='w-100'
 					src={screen.thumb.url}
@@ -16,5 +19,3 @@ class Thumb extends React.Component{
 		)
 	}
 }
-
-export default Thumb;

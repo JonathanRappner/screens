@@ -1,20 +1,24 @@
 .viewer-wrapper{
+
+	// black semi-transparent background
 	.backdrop{
 		width: 100%;
 		height: 100%;
 		cursor: pointer;
 		background-color: rgba(0, 0, 0, 0.5);
 
-		position: absolute;
+		position: fixed;
 		left: 0;
 		top: 0;
 		z-index: 10;
 	}
 
+	// the actual viewer
 	.viewer{
-		position: absolute;
+		position: fixed;
 		left: 0;
 		top: 0;
 		z-index: 20;
+		background-color: pink;/////////////////
 	}
 }
