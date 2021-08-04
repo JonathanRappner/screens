@@ -45,6 +45,8 @@ export default class Viewer extends React.Component {
 	close = () => {
 		this.setState({screen: null})
 		document.body.style.overflow = 'auto' // enable scrolling
+		document.getElementById("favicon").href = 'favicon.ico' // restore favicon
+		document.title = 'Screens' // restore title
 
 		this.props.closeViewer() // function in DefaultView
 	}
@@ -57,6 +59,8 @@ export default class Viewer extends React.Component {
 			.then(res => {
 				this.setState({screen: res.data})
 				this.updateDimensions()
+				document.getElementById("favicon").href = res.data.game.icon48_url // favicon
+				document.title = `${res.data.game.code.toUpperCase()}: ${res.data.date_time.format_long}` // title
 			})
 		}
 	}
