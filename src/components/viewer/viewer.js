@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import imageSize from 'react-image-size';
 import './viewer.scss'
 import config from '../../config'
 
@@ -24,11 +23,14 @@ export default class Viewer extends React.Component {
 			this.show()
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('resize', this.updateDimensions);
+	}
+
 	componentDidUpdate(prevProps) {
-		// viewer is closing or showing
 		if (prevProps.id !== this.props.id)
 		{
-			if(this.props.id)
+			if(this.props.id) // viewer is showing
 				this.show()
 		}
 	}
@@ -53,33 +55,32 @@ export default class Viewer extends React.Component {
 		{
 			axios.get(`${config.api_url}screens/${this.props.id}`)
 			.then(res => {
-				this.calcNewSize(res.data.thumb.url).then(newDimensions => { // get dimensions from thumb (which is already loaded)
-					this.setState({
-						screen: res.data,
-						width: newDimensions.width,
-						height: newDimensions.height,
-						top: newDimensions.top,
-						left: newDimensions.left,
-					})
-				})
+				this.setState({screen: res.data})
+				this.updateDimensions()
 			})
 		}
 	}
 
 	updateDimensions = () => {
-		if(this.props.id) // only run if a screen is loaded
+		if(this.state.screen) // only run if a screen is loaded
 		{
-			
+			const newDimensions = this.calcNewSize(this.state.screen.resolution)
+			this.setState({
+				width: newDimensions.width,
+				height: newDimensions.height,
+				top: newDimensions.top,
+				left: newDimensions.left,
+			})
 		}
 	}
 
 	/**
 	 * Calculate the size and position of the viewer based on the size of the browser and screenshot itself
-	 * @param {string} imgUrl 
 	 * @returns {json} width and height
 	 */
-	calcNewSize = async (imgUrl) => {
-		const { width, height } = await imageSize(imgUrl);
+	calcNewSize = (resolution) => {
+		const width = resolution.width
+		const height = resolution.height
 
 		// --size--
 		// first: try to set image width to browser width
