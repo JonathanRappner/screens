@@ -26,9 +26,9 @@ export default class Thumbs extends React.Component {
 		const gameCode = this.props.gameCode ?? 'all'
 
 		axios.get(`${config.api_url}screens/${gameCode}/latest/${this.props.length}`)
-		.then(res => {
-			this.setState({items: res.data})
-		})
+			.then(res => {
+				this.setState({items: res.data})
+			})
 	}
 
 	render() {
