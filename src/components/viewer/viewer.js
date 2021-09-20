@@ -1,60 +1,56 @@
 import React, { useState, useEffect } from 'react'
 import './viewer.scss'
 
+const blankDimensions = { width: 0, height: 0, top: 0, left: 0 }
+
+/**
+ * Calculate the size and position of the viewer based on the size of the browser and screenshot itself
+ * @param {object} screen JSON screenshot from API
+ * @returns 
+ */
+const getDimensions = (screen) => {
+	if (typeof screen === 'undefined') {
+		return blankDimensions
+	}
+
+	const width = screen.resolution.width
+	const height = screen.resolution.height
+
+	// --size--
+	// first: try to set image width to browser width
+	let newWidth = window.innerWidth
+	let newHeight = (newWidth / width) * height
+
+	// next: check if that's too tall
+	if (newHeight > window.innerHeight) {
+		newHeight = window.innerHeight
+		newWidth = (newHeight / height) * width
+	}
+
+	// --position--
+	const top = (window.innerHeight - newHeight) / 2
+	const left = (window.innerWidth - newWidth) / 2
+
+	return {
+		width: newWidth,
+		height: newHeight,
+		top: top,
+		left: left
+	}
+}
+
 
 const Viewer = (props) => {
 
 	// hooks
-	const [dimensions, setDimensions] = useState({ width: 0, height: 0, top: 0, left: 0 })
+	const [dimensions, setDimensions] = useState(blankDimensions)
 
-	// init
+	// props.screen changes
 	useEffect(() => {
-		window.addEventListener('resize', updateDimensions)
-	}, [])
-
-	// screen effect
-	useEffect(() => {
-		if (typeof props.screen !== 'undefined') { // only run if a screen is loaded
-			updateDimensions()
-			document.body.style.overflow = 'hidden' // disable scrcolling
-		}
+		setDimensions(getDimensions(props.screen)) // set viewer initial dimensions
+		window.addEventListener('resize', () => setDimensions(getDimensions(props.screen))) // add event listener that sets dimensions later
 	}, [props.screen])
 
-	/**
-	 * Calculate the size and position of the viewer based on the size of the browser and screenshot itself
-	 * @returns {json} width and height
-	 */
-	const updateDimensions = () => {
-		if (typeof props.screen === 'undefined') {
-			setDimensions({ width: 0, height: 0, top: 0, left: 0 })
-			return
-		}
-
-		const width = props.screen.resolution.width
-		const height = props.screen.resolution.height
-
-		// --size--
-		// first: try to set image width to browser width
-		let newWidth = window.innerWidth
-		let newHeight = (newWidth / width) * height
-
-		// next: check if that's too tall
-		if (newHeight > window.innerHeight) {
-			newHeight = window.innerHeight
-			newWidth = (newHeight / height) * width
-		}
-
-		// --position--
-		const top = (window.innerHeight - newHeight) / 2
-		const left = (window.innerWidth - newWidth) / 2
-
-		setDimensions({
-			width: newWidth,
-			height: newHeight,
-			top: top,
-			left: left
-		})
-	}
 
 	return (
 		<section className="viewer-wrapper">
@@ -75,7 +71,6 @@ const Viewer = (props) => {
 						}} onClick={props.close} alt={props.screen.date_time.format_long} />}
 				</div>
 			}
-
 		</section>
 	)
 }
