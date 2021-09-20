@@ -17,7 +17,7 @@ const Main = () => {
 	const [screen, setScreen] = useState(undefined)
 	const [thumbs, setThumbs] = useState([])
 
-	// gameCode effect
+	// gameCode changes
 	useEffect(() => {
 		axios.get(`${config.api_url}screens/${gameCode ?? 'all'}/latest/${100}`)////////////100
 			.then(res => {
@@ -25,14 +25,14 @@ const Main = () => {
 			}).catch(console.error)
 	}, [gameCode])
 
-	// screenId effect
+	// screenId changes
 	useEffect(() => {
 		if (typeof screenId !== 'undefined') {
 			axios.get(`${config.api_url}screens/${screenId}`)
 				.then(res => {
-					setScreen(res.data)
-					// document.getElementById("favicon").href = res.data.game.icon48_url // favicon
-					// document.title = `${res.data.game.code.toUpperCase()}: ${res.data.date_time.format_long}` // title
+					setScreen(res.data) // state
+					document.getElementById("favicon").href = res.data.game.icon48_url // favicon
+					document.title = `${res.data.game.code.toUpperCase()}: ${res.data.date_time.format_long}` // title
 				}).catch(console.error)
 		}
 	}, [screenId])
@@ -40,9 +40,9 @@ const Main = () => {
 	const closeViewer = () => {
 		history.push(`/${gameCode ?? ''}`)
 		setScreen(undefined)
-		// document.body.style.overflow = 'auto' // enable scrolling
-		// document.getElementById("favicon").href = 'favicon.ico' // restore favicon
-		// document.title = 'Screens' // restore title
+		document.body.style.overflow = 'auto' // enable scrolling
+		document.getElementById("favicon").href = 'favicon.ico' // restore favicon
+		document.title = 'Screens' // restore title
 	}
 
 

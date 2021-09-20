@@ -9,10 +9,6 @@ const blankDimensions = { width: 0, height: 0, top: 0, left: 0 }
  * @returns 
  */
 const getDimensions = (screen) => {
-	if (typeof screen === 'undefined') {
-		return blankDimensions
-	}
-
 	const width = screen.resolution.width
 	const height = screen.resolution.height
 
@@ -47,8 +43,11 @@ const Viewer = (props) => {
 
 	// props.screen changes
 	useEffect(() => {
-		setDimensions(getDimensions(props.screen)) // set viewer initial dimensions
-		window.addEventListener('resize', () => setDimensions(getDimensions(props.screen))) // add event listener that sets dimensions later
+		if (typeof props.screen !== 'undefined') { // if screen exists
+			setDimensions(getDimensions(props.screen)) // set viewer initial dimensions
+			window.addEventListener('resize', () => setDimensions(getDimensions(props.screen))) // add event listener that sets dimensions later
+			document.body.style.overflow = 'hidden' // disable scrolling
+		}
 	}, [props.screen])
 
 
