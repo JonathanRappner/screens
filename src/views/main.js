@@ -1,43 +1,58 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
+
 import './main.scss'
+import config from '../config'
 import Header from '../components/header/header'
-import Thumbs from '../components/thumbs/thumbs';
-import Viewer from '../components/viewer/viewer';
+import Thumbs from '../components/thumbs/thumbs'
+import Viewer from '../components/viewer/viewer'
 
-export default class Main extends React.Component{
+const Main = () => {
 
-	constructor(props) {
-		super(props)
-		this.state = {
-			viewerId: this.props.match.params.screenId, // viewer screenshot id
-			gameCode: this.props.match.params.gameCode, // thumbs game filter
-			thumbLength: 100,
-		};
-	}
+	// hooks
+	const { gameCode, screenId } = useParams()
+	const history = useHistory()
+	const [screen, setScreen] = useState(undefined)
+	const [thumbs, setThumbs] = useState([])
 
-	componentDidUpdate(prevProps) {
-		if(this.props.match.params !== prevProps.match.params) // url changed
-		{
-			this.setState({
-				viewerId: this.props.match.params.screenId,
-				gameCode: this.props.match.params.gameCode,
-			})
+	// gameCode effect
+	useEffect(() => {
+		axios.get(`${config.api_url}screens/${gameCode ?? 'all'}/latest/${100}`)////////////100
+			.then(res => {
+				setThumbs(res.data)
+			}).catch(console.error)
+	}, [gameCode])
+
+	// screenId effect
+	useEffect(() => {
+		if (typeof screenId !== 'undefined') {
+			axios.get(`${config.api_url}screens/${screenId}`)
+				.then(res => {
+					setScreen(res.data)
+					// document.getElementById("favicon").href = res.data.game.icon48_url // favicon
+					// document.title = `${res.data.game.code.toUpperCase()}: ${res.data.date_time.format_long}` // title
+				}).catch(console.error)
 		}
+	}, [screenId])
+
+	const closeViewer = () => {
+		history.push(`/${gameCode ?? ''}`)
+		setScreen(undefined)
+		// document.body.style.overflow = 'auto' // enable scrolling
+		// document.getElementById("favicon").href = 'favicon.ico' // restore favicon
+		// document.title = 'Screens' // restore title
 	}
 
-	// parent component must know when the viewer has been closed because it opens it by changing its state
-	closeViewer = () => {
-		this.setState({ viewerId: null }) // reset viewerId on close so that a future viewerId value change will display the viewer again
-		this.props.history.push(`/${this.state.gameCode ?? ''}`) // set the gameCode (if there is any) in the url
-	}
 
-	render() {
-		return (
-			<div className='App container-fluid gx-0' style={{'paddingRight': this.props.match.params.screenId ? '14px' : ''}}>
-				<Viewer id={this.state.viewerId} closeViewer={this.closeViewer} />
-				<Header />
-				<Thumbs length={this.state.thumbLength} gameCode={this.state.gameCode} />
-			</div>
-		)
-	}
+	return (
+		<div className='App container-fluid gx-0' style={{ 'paddingRight': screenId ? '14px' : '' }}>
+			<Viewer screen={screen} close={closeViewer} />
+			<Header />
+			<Thumbs thumbs={thumbs} gameCode={gameCode} />
+		</div>
+	)
 }
+
+export default Main
