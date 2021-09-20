@@ -47,7 +47,7 @@ const Main = () => {
 
 
 	return (
-		<div className='App container-fluid gx-0' style={{ 'paddingRight': screenId ? '14px' : '' }}>
+		<div className='App container-fluid gx-0'>
 			<Viewer screen={screen} close={closeViewer} />
 			<Header />
 			<Thumbs thumbs={thumbs} gameCode={gameCode} />
