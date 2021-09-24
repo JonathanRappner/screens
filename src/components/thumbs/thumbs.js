@@ -8,10 +8,10 @@ import Thumb from './thumb'
 const thumbsSx = {
 	display: 'flex',
 	flexWrap: 'wrap',
+	lineHeight: 0
 }
 
 const Thumbs = (props) => {
-
 	return (
 		<Box container sx={thumbsSx}>
 			{props.thumbs && props.thumbs.map(thumb =>
@@ -19,7 +19,8 @@ const Thumbs = (props) => {
 					<Thumb key={thumb.id} screen={thumb} gameCode={props.gameCode} />
 				</Box>
 			)}
-		</Box>)
+		</Box>
+	)
 }
 
 export default Thumbs
