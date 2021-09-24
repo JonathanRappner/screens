@@ -1,5 +1,6 @@
+/** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react'
-import './viewer.scss'
+import { css } from '@emotion/react'
 
 const blankDimensions = { width: 0, height: 0, top: 0, left: 0 }
 
@@ -35,11 +36,44 @@ const getDimensions = (screen) => {
 	}
 }
 
+// Styles
+// Viewer transparent backdrop
+const backdropStyle = css`
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 10;
+`
+// Viewer
+const viewerStyle = css`
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 20;
+	line-height: 0;
+	background-color: pink;
+`
+
 
 const Viewer = (props) => {
 
 	// hooks
 	const [dimensions, setDimensions] = useState(blankDimensions)
+
+	// Dynamic styles
+	const viewerDynamicStyle = css`
+		top: ${dimensions.top}px;
+		left: ${dimensions.left}px;
+	`
+	// Viewer img
+	const viewerImgDynamicStyle = css`
+		width: ${dimensions.width}px;
+		height: ${dimensions.height}px;
+	`
 
 	// props.screen changes
 	useEffect(() => {
@@ -52,23 +86,21 @@ const Viewer = (props) => {
 
 
 	return (
-		<section className="viewer-wrapper">
-			{props.screen && <div className="backdrop" onClick={props.close}></div>}
-
+		<section>
 			{props.screen &&
-				<div className="viewer" style={{
-					'top': dimensions.top + 'px',
-					'left': dimensions.left + 'px'
-				}}>
-					{/* <h5 className="text-light">Viewing screen {props.id}</h5> */}
-					{/* <Button color="danger" onClick={close}>X</Button> */}
-					{
-						props.screen &&
-						<img src={props.screen.screen.url} style={{
-							'width': dimensions.width + 'px',
-							'height': dimensions.height + 'px'
-						}} onClick={props.close} alt={props.screen.date_time.format_long} />}
-				</div>
+				<React.Fragment>
+					<div css={backdropStyle} onClick={props.close}></div>
+					<div css={[viewerStyle, viewerDynamicStyle]}>
+						{props.screen &&
+							<img
+								css={viewerImgDynamicStyle}
+								src={props.screen.screen.url}
+								onClick={props.close}
+								alt={props.screen.date_time.format_long}
+							/>
+						}
+					</div>
+				</React.Fragment>
 			}
 		</section>
 	)

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
+import {
+	Grid//, Box
+} from '@mui/material'
 import axios from 'axios'
 
-import './main.scss'
 import config from '../config'
 import Header from '../components/header/header'
 import Thumbs from '../components/thumbs/thumbs'
@@ -47,11 +48,15 @@ const Main = () => {
 
 
 	return (
-		<div className='App container-fluid gx-0'>
+		<Grid container direction='column'>
 			<Viewer screen={screen} close={closeViewer} />
-			<Header />
-			<Thumbs thumbs={thumbs} gameCode={gameCode} />
-		</div>
+			<Grid item>
+				<Header />
+			</Grid>
+			<Grid item>
+				<Thumbs thumbs={thumbs} gameCode={gameCode} />
+			</Grid>
+		</Grid>
 	)
 }
 

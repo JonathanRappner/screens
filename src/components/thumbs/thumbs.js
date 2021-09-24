@@ -1,15 +1,25 @@
-import React from 'react'
+import {
+	Box
+} from '@mui/material'
+
 import Thumb from './thumb'
-import './thumbs.scss'
+
+// Style
+const thumbsSx = {
+	display: 'flex',
+	flexWrap: 'wrap',
+}
 
 const Thumbs = (props) => {
 
 	return (
-		<section className='row g-0'>
+		<Box container sx={thumbsSx}>
 			{props.thumbs && props.thumbs.map(thumb =>
-				<Thumb key={thumb.id} screen={thumb} gameCode={props.gameCode} />
+				<Box item>
+					<Thumb key={thumb.id} screen={thumb} gameCode={props.gameCode} />
+				</Box>
 			)}
-		</section>)
+		</Box>)
 }
 
 export default Thumbs
