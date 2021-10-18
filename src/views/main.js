@@ -15,7 +15,7 @@ const Main = () => {
 	// hooks
 	const { gameCode, screenId } = useParams()
 	const history = useHistory()
-	const [screen, setScreen] = useState(undefined)
+	const [screen, setScreen] = useState()
 	const [thumbs, setThumbs] = useState([])
 
 	// gameCode changes
@@ -29,6 +29,8 @@ const Main = () => {
 	// screenId changes
 	useEffect(() => {
 		if (typeof screenId !== 'undefined') {
+			
+			// ladda screen info från api
 			axios.get(`${config.api_url}screens/${screenId}`)
 				.then(res => {
 					setScreen(res.data) // state
@@ -40,7 +42,7 @@ const Main = () => {
 
 	const closeViewer = () => {
 		history.push(`/${gameCode ?? ''}`)
-		setScreen(undefined)
+		setScreen()
 		document.body.style.overflow = 'auto' // enable scrolling
 		document.getElementById("favicon").href = 'favicon.ico' // restore favicon
 		document.title = 'Screens' // restore title

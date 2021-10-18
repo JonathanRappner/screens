@@ -2,8 +2,10 @@
 import React from 'react'
 import { css } from '@emotion/react'
 import { Link } from "react-router-dom";
-
 import _ from 'lodash';
+import {
+	Box
+} from '@mui/material'
 
 // Style
 const imgStyle = css`
@@ -18,13 +20,15 @@ const Thumb = (props) => {
 	const url = `/${!_.isNil(props.gameCode) ? props.gameCode + '/' : ''}` + props.screen.id
 
 	return (
-		<Link to={url}>
-			<img
-				css={imgStyle}
-				src={props.screen.thumb.url}
-				alt={'Screen ' + props.screen.id}
-			/>
-		</Link>
+		<Box item>
+			<Link to={url}>
+				<img
+					css={imgStyle}
+					src={props.screen.thumb.url}
+					alt={'Screen ' + props.screen.id}
+				/>
+			</Link>
+		</Box>
 	)
 }
 

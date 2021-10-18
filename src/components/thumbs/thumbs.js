@@ -15,9 +15,7 @@ const Thumbs = (props) => {
 	return (
 		<Box container sx={thumbsSx}>
 			{props.thumbs && props.thumbs.map(thumb =>
-				<Box item>
-					<Thumb key={thumb.id} screen={thumb} gameCode={props.gameCode} />
-				</Box>
+				<Thumb key={thumb.id} screen={thumb} gameCode={props.gameCode} />
 			)}
 		</Box>
 	)

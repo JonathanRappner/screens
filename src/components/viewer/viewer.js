@@ -46,8 +46,7 @@ const backdropStyle = css`
 	position: fixed;
 	left: 0;
 	top: 0;
-	z-index: 10;
-`
+	z-index: 10;`
 // Viewer
 const viewerStyle = css`
 	position: fixed;
@@ -55,30 +54,32 @@ const viewerStyle = css`
 	top: 0;
 	z-index: 20;
 	line-height: 0;
-	background-color: pink;
-`
+	background-size: 100%;`
 
 
 const Viewer = (props) => {
 
 	// hooks
 	const [dimensions, setDimensions] = useState(blankDimensions)
+	const [thumbURL, setThumbURL] = useState()
 
 	// Dynamic styles
 	const viewerDynamicStyle = css`
 		top: ${dimensions.top}px;
 		left: ${dimensions.left}px;
-	`
+		width: ${dimensions.width}px;
+		height: ${dimensions.height}px`
 	// Viewer img
 	const viewerImgDynamicStyle = css`
 		width: ${dimensions.width}px;
-		height: ${dimensions.height}px;
-	`
+		height: ${dimensions.height}px;`
+	const viewerThumbBackground = css`background-image: url(${thumbURL});` // 
 
 	// props.screen changes
 	useEffect(() => {
 		if (typeof props.screen !== 'undefined') { // if screen exists
 			setDimensions(getDimensions(props.screen)) // set viewer initial dimensions
+			setThumbURL(props.screen.thumb.url) // 
 			window.addEventListener('resize', () => setDimensions(getDimensions(props.screen))) // add event listener that sets dimensions later
 			document.body.style.overflow = 'hidden' // disable scrolling
 		}
@@ -90,7 +91,7 @@ const Viewer = (props) => {
 			{props.screen &&
 				<React.Fragment>
 					<div css={backdropStyle} onClick={props.close}></div>
-					<div css={[viewerStyle, viewerDynamicStyle]}>
+					<div css={[viewerStyle, viewerDynamicStyle, viewerThumbBackground]}>
 						{props.screen &&
 							<img
 								css={viewerImgDynamicStyle}
