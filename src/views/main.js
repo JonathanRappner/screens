@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import {
 	Grid//, Box
 } from '@mui/material'
@@ -13,10 +13,14 @@ import Viewer from '../components/viewer/viewer'
 const Main = () => {
 
 	// hooks
-	const { gameCode, screenId } = useParams()
-	const history = useHistory()
+	const { param1, param2 } = useParams()
+	const navigate = useNavigate()
 	const [screen, setScreen] = useState()
 	const [thumbs, setThumbs] = useState([])
+
+	// URL-parametrar
+	const gameCode = param1 && param1.match(/[a-zA-Z]+/) ? param1 : undefined
+	const screenId = param1 && param1.match(/\d{10}/) ? param1 : param2
 
 	// gameCode changes
 	useEffect(() => {
@@ -41,7 +45,7 @@ const Main = () => {
 	}, [screenId])
 
 	const closeViewer = () => {
-		history.push(`/${gameCode ?? ''}`)
+		navigate(`/${gameCode ?? ''}`)
 		setScreen()
 		document.body.style.overflow = 'auto' // enable scrolling
 		document.getElementById("favicon").href = 'favicon.ico' // restore favicon

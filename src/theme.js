@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles"
+import { createTheme } from '@mui/material/styles'
 
 export default createTheme({
 	palette: {
@@ -6,11 +6,17 @@ export default createTheme({
 		primary: { main: '#343a40' },
 		secondary: { main: '#FFF' }
 	},
+	typography: {
+		h1: {
+			fontSize: '2rem',
+			fontWeight: 'bold',
+		},
+	},
 	components: {
 		MuiCssBaseline: {
 			styleOverrides: {
 				body: {
-					backgroundColor: "#282c34"
+					backgroundColor: '#282c34'
 				},
 				'::-webkit-scrollbar': {
 					width: 14
@@ -18,7 +24,7 @@ export default createTheme({
 				'::-webkit-scrollbar-thumb': {
 					background: 'rgb(85, 85, 85)',
 					borderRadius: 6
-				}
+				},
 			}
 		}
 	},

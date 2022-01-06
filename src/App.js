@@ -1,7 +1,6 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { ThemeProvider } from '@mui/material'
-import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Views
@@ -14,21 +13,32 @@ import FourOFour from './views/fourOFour'
 const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
-			<EmotionThemeProvider theme={theme}>
-				<CssBaseline />
-				<Router>
-					<Switch>
-						<Route exact path='/' component={Main} />
-						<Route path='/admin' component={AdminView} />
-						<Route path='/:gameCode(\w+)/:screenId(\d{10})' component={Main} />
-						<Route path='/:screenId(\d{10})' component={Main} />
-						<Route path='/:gameCode(\w+)' component={Main} />
-						<Route component={FourOFour} />
-					</Switch>
-				</Router>
-			</EmotionThemeProvider>
+			<CssBaseline />
+			<BrowserRouter>
+				<Routes>
+					<Route exact path='/' element={<Main />} />
+					<Route path='admin' element={<AdminView />} />
+					<Route path=':param1/:param2' element={<Main />} />
+					<Route path=':param1' element={<Main />} />
+					<Route path='*' element={<FourOFour />} />
+				</Routes>
+			</BrowserRouter>
 		</ThemeProvider>
 	)
 }
 
 export default App
+
+/*
+<BrowserRouter>
+	<Routes>
+		<Route path='/' element={<Index />} />
+		<Route path='/mkb' element={<MKB />} />
+		<Route path='/foretagarnajul2021/*' element={<ForetagarnaJul2021 />} />
+		<Route path='/rikshem' element={<Rikshem />} />
+		<Route path='/jul2021/' element={<Julevent2021 />} />
+		<Route path='/jul2021/signups' element={<Julevent2021Signups />} />
+		<Route path='*' element={<FourOFour />} />
+	</Routes>
+</BrowserRouter>
+*/

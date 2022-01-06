@@ -1,6 +1,7 @@
-/** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react'
-import { css } from '@emotion/react'
+import {
+	Box
+} from '@mui/material'
 
 const blankDimensions = { width: 0, height: 0, top: 0, left: 0 }
 
@@ -38,23 +39,25 @@ const getDimensions = (screen) => {
 
 // Styles
 // Viewer transparent backdrop
-const backdropStyle = css`
-	width: 100%;
-	height: 100%;
-	cursor: pointer;
-	background-color: rgba(0, 0, 0, 0.5);
-	position: fixed;
-	left: 0;
-	top: 0;
-	z-index: 10;`
+const backdropStyle = {
+	width: '100%',
+	height: '100%',
+	cursor: 'pointer',
+	backgroundColor: 'rgba(0, 0, 0, 0.5)',
+	position: 'fixed',
+	left: 0,
+	top: 0,
+	zIndex: 10,
+}
 // Viewer
-const viewerStyle = css`
-	position: fixed;
-	left: 0;
-	top: 0;
-	z-index: 20;
-	line-height: 0;
-	background-size: 100%;`
+const viewerStyle = {
+	position: 'fixed',
+	left: 0,
+	top: 0,
+	zIndex: 20,
+	lineHeight: 0,
+	backgroundSize: '100%',
+}
 
 
 const Viewer = (props) => {
@@ -64,16 +67,18 @@ const Viewer = (props) => {
 	const [thumbURL, setThumbURL] = useState()
 
 	// Dynamic styles
-	const viewerDynamicStyle = css`
-		top: ${dimensions.top}px;
-		left: ${dimensions.left}px;
-		width: ${dimensions.width}px;
-		height: ${dimensions.height}px`
+	const viewerDynamicStyle = {
+		top: dimensions.top + 'px',
+		left: dimensions.left + 'px',
+		width: dimensions.width + 'px',
+		height: dimensions.height + 'px',
+	}
 	// Viewer img
-	const viewerImgDynamicStyle = css`
-		width: ${dimensions.width}px;
-		height: ${dimensions.height}px;`
-	const viewerThumbBackground = css`background-image: url(${thumbURL});` // 
+	const viewerImgDynamicStyle = {
+		width: dimensions.width +'px',
+		height: dimensions.height +'px',
+	}
+	const viewerThumbBackground = {backgroundImage: `url(${thumbURL})`}
 
 	// props.screen changes
 	useEffect(() => {
@@ -90,17 +95,18 @@ const Viewer = (props) => {
 		<section>
 			{props.screen &&
 				<React.Fragment>
-					<div css={backdropStyle} onClick={props.close}></div>
-					<div css={[viewerStyle, viewerDynamicStyle, viewerThumbBackground]}>
+					<Box sx={backdropStyle} onClick={props.close}></Box>
+					<Box sx={[viewerStyle, viewerDynamicStyle, viewerThumbBackground]}>
 						{props.screen &&
-							<img
-								css={viewerImgDynamicStyle}
+							<Box
+								component='img'
+								sx={viewerImgDynamicStyle}
 								src={props.screen.screen.url}
 								onClick={props.close}
 								alt={props.screen.date_time.format_long}
 							/>
 						}
-					</div>
+					</Box>
 				</React.Fragment>
 			}
 		</section>

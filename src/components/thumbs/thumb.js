@@ -1,6 +1,4 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react'
-import { css } from '@emotion/react'
 import { Link } from "react-router-dom";
 import _ from 'lodash';
 import {
@@ -8,12 +6,10 @@ import {
 } from '@mui/material'
 
 // Style
-const imgStyle = css`
-	background-color: blue;
-	&:hover{
-		background-color: red;
-	}
-`
+const imgStyle = {
+	backgroundColor: 'blue',
+	'&:hover': { backgroundColor: 'red' }
+}
 
 const Thumb = (props) => {
 
@@ -22,8 +18,9 @@ const Thumb = (props) => {
 	return (
 		<Box item>
 			<Link to={url}>
-				<img
-					css={imgStyle}
+				<Box
+					component='img'
+					sx={imgStyle}
 					src={props.screen.thumb.url}
 					alt={'Screen ' + props.screen.id}
 				/>
