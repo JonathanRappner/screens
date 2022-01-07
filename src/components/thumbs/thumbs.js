@@ -13,7 +13,7 @@ const thumbsSx = {
 
 const Thumbs = (props) => {
 	return (
-		<Box container sx={thumbsSx}>
+		<Box sx={thumbsSx}>
 			{props.thumbs && props.thumbs.map(thumb =>
 				<Thumb key={thumb.id} screen={thumb} gameCode={props.gameCode} />
 			)}
