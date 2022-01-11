@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles'
+import bg from './stripe.png'
 
 export default createTheme({
 	palette: {
@@ -16,7 +17,7 @@ export default createTheme({
 		MuiCssBaseline: {
 			styleOverrides: {
 				body: {
-					backgroundColor: '#282c34'
+					backgroundImage:`url(${bg})`,
 				},
 				'::-webkit-scrollbar': {
 					width: 14

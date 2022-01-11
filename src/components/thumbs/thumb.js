@@ -8,8 +8,14 @@ import {
 // Style
 const thumbStyle = {
 	backgroundRepeat: 'no-repeat',
-	backgroundSize: 'cover',
+	backgroundSize: '100%',
 	backgroundPosition: 'center',
+
+
+
+	// opacity: 0,
+
+	
 
 	color: 'black',
 	textDecoration: 'none',
@@ -18,6 +24,13 @@ const thumbStyle = {
 	alignItems: 'flex-end',
 	flexDirection: 'row-reverse',
 
+	transition: 'background-size 300ms ease-out',
+
+	'&:hover':{
+		backgroundSize: '110%',
+		transition: 'background-size 300ms ease-out',
+	},
+
 	'.info_box': {
 		opacity: 0,
 		transition: 'opacity 100ms',
@@ -25,21 +38,24 @@ const thumbStyle = {
 	'&:hover .info_box': {
 		opacity: 1,
 	},
-}
-const thumbResponsiveStyle = { // dynamic width and height
+
+	ml: '8px',
+	mb: '8px',
+	
+	// dynamic width and height
 	width: { // must use % here because vw doesn't account for the scroll bar.
-		xs: '50%', // 2 columns
-		sm: '33%', // 3 columns
-		md: '25%', // 4 columns
-		lg: '16.667%', // 6 columns
-		xl: '12.5%', // 8 columns
+		xs: 'calc(50% - 8px)', // 2 columns - margin
+		sm: 'calc(33% - 8px)', // 3 columns
+		md: 'calc(25% - 8px)', // 4 columns
+		lg: 'calc(16.667% - 8px)', // 6 columns
+		xl: 'calc(12.5% - 8px)', // 8 columns
 	},
 	height: { // w to h ratio = 0.5625 (based on 1920x1080)
-		xs: '28.125vw', // 50 * 0.5625 = 28.125
-		sm: '18.5625vw',
-		md: '14.0625vw',
-		lg: '9.37125vw',
-		xl: '7.03125vw',
+		xs: 'calc(28.125vw - 8px)', // 50 * 0.5625 = 28.125
+		sm: 'calc(18.5625vw - 8px)',
+		md: 'calc(14.0625vw - 8px)',
+		lg: 'calc(9.37125vw - 8px)',
+		xl: 'calc(7.03125vw - 8px)',
 	},
 }
 const infoBoxStyle = {
@@ -53,9 +69,10 @@ const infoBoxStyle = {
 const Thumb = (props) => {
 
 	const url = `/${!_.isNil(props.gameCode) ? props.gameCode + '/' : ''}` + props.screen.id
+	const bg = { backgroundImage: `url(${props.screen.thumb.url})` }
 
 	return (
-		<Box component={Link} to={url} sx={[thumbStyle, thumbResponsiveStyle, { backgroundImage: `url(${props.screen.thumb.url})` }]}>
+		<Box component={Link} to={url} sx={thumbStyle} style={bg}>
 			<Box className='info_box' sx={infoBoxStyle}>
 				<Box component='img' src={`data:image/png;base64,${props.screen.game.icon16}`} />
 				{props.screen.date_time.format_long}
