@@ -2,16 +2,31 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import _ from 'lodash';
 import {
-	Box
+	Box,
 } from '@mui/material'
 
 // Style
-const divStyle = {
+const thumbStyle = {
 	backgroundRepeat: 'no-repeat',
 	backgroundSize: 'cover',
 	backgroundPosition: 'center',
+
+	color: 'black',
+	textDecoration: 'none',
+
+	display: 'flex',
+	alignItems: 'flex-end',
+	flexDirection: 'row-reverse',
+
+	'.info_box': {
+		opacity: 0,
+		transition: 'opacity 100ms',
+	},
+	'&:hover .info_box': {
+		opacity: 1,
+	},
 }
-const divResponsiveStyle = { // dynamic width and height
+const thumbResponsiveStyle = { // dynamic width and height
 	width: { // must use % here because vw doesn't account for the scroll bar.
 		xs: '50%', // 2 columns
 		sm: '33%', // 3 columns
@@ -27,9 +42,12 @@ const divResponsiveStyle = { // dynamic width and height
 		xl: '7.03125vw',
 	},
 }
-const linkStyle = {
-	height: '100%',
-	display: 'block',
+const infoBoxStyle = {
+	margin: 1,
+	py: 0.8, 
+	px: 1.6,
+	borderRadius: 1,
+	backgroundColor: 'white',
 }
 
 const Thumb = (props) => {
@@ -37,8 +55,11 @@ const Thumb = (props) => {
 	const url = `/${!_.isNil(props.gameCode) ? props.gameCode + '/' : ''}` + props.screen.id
 
 	return (
-		<Box sx={[divStyle, divResponsiveStyle, { backgroundImage: `url(${props.screen.thumb.url})` }]}>
-			<Link to={url} style={linkStyle} />
+		<Box component={Link} to={url} sx={[thumbStyle, thumbResponsiveStyle, { backgroundImage: `url(${props.screen.thumb.url})` }]}>
+			<Box className='info_box' sx={infoBoxStyle}>
+				<Box component='img' src={`data:image/png;base64,${props.screen.game.icon16}`} />
+				{props.screen.date_time.format_long}
+			</Box>
 		</Box>
 	)
 }

@@ -8,7 +8,6 @@ import Thumb from './thumb'
 const thumbsSx = {
 	display: 'flex',
 	flexWrap: 'wrap',
-	lineHeight: 0
 }
 
 const Thumbs = (props) => {
