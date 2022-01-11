@@ -11,12 +11,6 @@ const thumbStyle = {
 	backgroundSize: '100%',
 	backgroundPosition: 'center',
 
-
-
-	// opacity: 0,
-
-	
-
 	color: 'black',
 	textDecoration: 'none',
 
@@ -39,7 +33,7 @@ const thumbStyle = {
 		opacity: 1,
 	},
 
-	ml: '8px',
+	mr: '8px',
 	mb: '8px',
 	
 	// dynamic width and height

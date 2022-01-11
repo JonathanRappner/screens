@@ -8,6 +8,7 @@ import Thumb from './thumb'
 const thumbsStyle = {
 	display: 'flex',
 	flexWrap: 'wrap',
+	pl: '8px',
 
 	backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(77,174,200,0.15), rgba(0,0,0,0))',
 	backgroundSize: '100% 100vh'

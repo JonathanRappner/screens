@@ -8,7 +8,7 @@ import sun from './sun.svg'
 
 // Styles
 const headerStyle = {
-	backgroundImage: 'linear-gradient(rgba(77,174,200,0.15), rgba(0,0,0,0))',
+	backgroundImage: 'linear-gradient(rgba(77,174,200,0.10), rgba(0,0,0,0))',
 	padding: 1,
 }
 const headingStyle = {
